@@ -1,0 +1,191 @@
+<section>
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title fw-semibold mb-4">Unité de Mésure</h5>
+
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-12">
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                data-bs-whatever="@mdo"
+              >
+                Ajouter une unité de mésure
+              </button>
+              <div
+                class="modal fade"
+                id="exampleModal"
+                tabindex="-1"
+                aria-labelledby="exampleModalLabel"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">
+                        Ajouter une unité de mésure
+                      </h5>
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
+                    </div>
+                    <div class="modal-body">
+                      <form
+                        nz-form
+                        [formGroup]="validateForm"
+                        (ngSubmit)="submitForm()"
+                      >
+                        <nz-form-item>
+                          <nz-form-label [nzSpan]="7" nzRequired
+                            >Libelle</nz-form-label
+                          >
+                          <nz-form-control
+                            [nzSpan]="12"
+                            nzHasFeedback
+                            nzValidatingTip="Validating..."
+                            [nzErrorTip]="userErrorTpl"
+                          >
+                            <input
+                              nz-input
+                              formControlName="libelle"
+                              placeholder="Veuillez saisir un libelle valide"
+                            />
+                            <ng-template #userErrorTpl let-control>
+                              <ng-container *ngIf="control.hasError('required')"
+                                >Veuille saisir le libelle !</ng-container
+                              >
+                              <ng-container
+                                *ngIf="control.hasError('duplicated')"
+                                >The libelle is redundant!</ng-container
+                              >
+                            </ng-template>
+                          </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                          <nz-form-label [nzSpan]="7" nzRequired
+                            >Symbole</nz-form-label
+                          >
+                          <nz-form-control
+                            [nzSpan]="12"
+                            nzHasFeedback
+                            nzValidatingTip="Validating..."
+                            [nzErrorTip]="userErrorTpl"
+                          >
+                            <input
+                              nz-input
+                              formControlName="symbole"
+                              placeholder="Veuillez saisir un symbole valide"
+                            />
+                            <ng-template #userErrorTpl let-control>
+                              <ng-container *ngIf="control.hasError('required')"
+                                >Veuille saisir le libelle !</ng-container
+                              >
+                              <ng-container
+                                *ngIf="control.hasError('duplicated')"
+                                >The libelle is redundant!</ng-container
+                              >
+                            </ng-template>
+                          </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                          <nz-form-control [nzOffset]="9" [nzSpan]="12">
+                            <button
+                              nz-button
+                              nzType="primary"
+                              [disabled]="!validateForm.valid"
+                            >
+                              Valider
+                            </button>
+
+                            <button
+                              style="margin-left: 10px"
+                              nz-button
+                              (click)="resetForm($event)"
+                            >
+                              Effacer
+                            </button>
+                          </nz-form-control>
+                        </nz-form-item>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <form (ngSubmit)="searchUint(searchTerms.value)">
+          <input
+            type="text"
+            nz-input
+            class="mb-3"
+            style="width: 300px; float: inline-end"
+            [(ngModel)]="searchQuery"
+            placeholder="Recherche ..."
+            (input)="autoSearch()"
+            #searchTerms
+            name="searchQuery"
+          />
+        </form>
+
+        <nz-table
+          #rowSelectionTable
+          nzShowPagination
+          [nzPageSize]="5"
+          [nzData]="listUnitMeasure"
+        >
+          <thead>
+            <tr>
+              <th>Code Auto</th>
+              <th>Libelle</th>
+              <th>Symbole</th>
+              <th>Modifier</th>
+              <th>Supprimer</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of rowSelectionTable.data">
+              <td>{{ data.codeAuto }}</td>
+              <td>{{ data.libelle }}</td>
+              <td>{{ data.symbole }}</td>
+              <td>
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                  data-bs-whatever="@mdo"
+                  class="btn btn-primary"
+                  (click)="getUnite(data)"
+                >
+                  <i class="ti ti-edit"></i>
+                </button>
+              </td>
+              <td>
+                <button
+                  (nzOnConfirm)="deleteUnite(data)"
+                  nz-popconfirm
+                  nzPopconfirmPlacement="top"
+                  nzPopconfirmTitle="Confirmez-vous la suppression ?"
+                  nzShape="circle"
+                  title="Supprimer"
+                  class="btn btn-danger"
+                >
+                  <i class="ti ti-trash-x"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </div>
+    </div>
+  </div>
+</section>

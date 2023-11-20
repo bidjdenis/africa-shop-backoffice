@@ -1,0 +1,27 @@
+<!--  Body Wrapper -->
+<div
+  class="page-wrapper"
+  id="main-wrapper"
+  data-layout="vertical"
+  data-navbarbg="skin6"
+  data-sidebartype="full"
+  data-sidebar-position="fixed"
+  data-header-position="fixed"
+>
+  <!-- Sidebar Start -->
+  <aside class="left-sidebar">
+    <app-brand-logo *ngIf="true"></app-brand-logo>
+    <app-sidebar-navigation *ngIf="true"></app-sidebar-navigation>
+  </aside>
+  <!--  Sidebar End -->
+  <!--  Main wrapper -->
+  <div class="body-wrapper">
+    <!--  Header Start -->
+    <app-header></app-header>
+    <!--  Header End -->
+    <div class="container-fluid">
+      <router-outlet></router-outlet>
+    </div>
+    <app-footer></app-footer>
+  </div>
+</div>
