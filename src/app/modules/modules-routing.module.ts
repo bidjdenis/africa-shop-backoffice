@@ -54,7 +54,7 @@ const routes: Routes = [
         path: 'roles',
         loadChildren: () => import('./role/role.module').then((m) => m.RoleModule)
       }
-      
+
     ]
   }
 ];

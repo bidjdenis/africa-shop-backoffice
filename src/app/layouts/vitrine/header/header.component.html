@@ -43,15 +43,14 @@
             aria-labelledby="drop2"
           >
             <div class="message-body">
-              <div class="d-flex align-items-center gap-2 dropdown-item">{{userInfos.name}} {{userInfos.firstName}} </div>
-              <a
-               
-                class="d-flex align-items-center gap-2 dropdown-item"
-              >
+              <div class="d-flex align-items-center gap-2 dropdown-item">
+                {{ userInfos.name }} {{ userInfos.firstname }}
+              </div>
+              <a class="d-flex align-items-center gap-2 dropdown-item">
                 <i class="ti ti-edit fs-6"></i>
                 <p class="mb-0 fs-3">Mon compte</p>
               </a>
-              
+
               <a
                 (click)="logOut()"
                 class="btn btn-outline-primary mx-3 mt-2 d-block"
